@@ -17,7 +17,7 @@ This document assumes that you already have [Docker](https://docs.docker.com/eng
 Download the docker container for this project as follows:
 
 ```
-docker pull alikhalid3110/ros_essentials:latest
+docker pull kk5271/rapid_v2v:1.0
 ```
 
 To check if you have pulled the docker, run the following:
@@ -26,7 +26,7 @@ To check if you have pulled the docker, run the following:
 docker images
 ```
 
-This should output all the dockers you have on your machine and it should contain ```alikhalid3110/ros_essentials:latest```. Now, that you have the docker, you can run it on your machine. We have a [script](run_vrf_docker.bash) for this which will let you mount folders (volumes) to the docker as well. It also sets up different parameters so that you can use GUI programs from within the docker. To use this script, you need to do the following. Open the [run_vrf_docker.bash](run_vrf_docker.bash) file and change lines 4 and 5 to reflect paths to where you keep your datasets and codebases. As you can see, I keep datasets in ```/home/ali/dataset/``` and my VRF code in ```/home/ali/workspace/VRF``. After you have made these changes, simply run the script to fire up the docker.
+This should output all the dockers you have on your machine and it should contain ```docker pull kk5271/rapid_v2v:1.0```. Now, that you have the docker, you can run it on your machine. We have a [script](run_vrf_docker.bash) for this which will let you mount folders (volumes) to the docker as well. It also sets up different parameters so that you can use GUI programs from within the docker. To use this script, you need to do the following. Open the [run_vrf_docker.bash](run_vrf_docker.bash) file and change lines 4 and 5 to reflect paths to where you keep your datasets and codebases. As you can see, I keep datasets in ```/home/ali/dataset/``` and my VRF code in ```/home/ali/workspace/VRF``. After you have made these changes, simply run the script to fire up the docker.
 
 ```
 bash run_edge_assist_docker.bash
