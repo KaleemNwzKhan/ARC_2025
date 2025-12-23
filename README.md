@@ -20,31 +20,31 @@ Download the docker container for this project as follows:
 docker pull kk5271/rapid_v2v:1.0
 ```
 
-To check if you have pulled the docker, run the following:
+To check if you have pulled the Docker, run the following:
 
 ```
 docker images
 ```
 
-This should output all the dockers you have on your machine and it should contain ```docker pull kk5271/rapid_v2v:1.0```. Now, that you have the docker, you can run it on your machine. We have a [script](run_vrf_docker.bash) for this which will let you mount folders (volumes) to the docker as well. It also sets up different parameters so that you can use GUI programs from within the docker. To use this script, you need to do the following. Open the [run_vrf_docker.bash](run_vrf_docker.bash) file and change lines 4 and 5 to reflect paths to where you keep your datasets and codebases. As you can see, I keep datasets in ```/home/ali/dataset/``` and my VRF code in ```/home/ali/workspace/VRF``. After you have made these changes, simply run the script to fire up the docker.
+This should output all the Docker images you have on your machine, and it should contain ```docker pull kk5271/rapid_v2v:1.0```. Now that you have Docker, you can run it on your machine. We have a [script](run_arc_docker.bash) for this, which will let you mount folders (volumes) to the Docker as well. It also sets up different parameters so that you can use GUI programs from within Docker. To use this script, you need to do the following. Open the [script](run_arc_docker.bash)(run_vrf_docker.bash) file and change lines 4 and 5 to reflect paths to where you keep your datasets and codebases. As you can see, we keep datasets in ```/home/kk5271/dataset/``` and our ARC code in ```/home/kk5271/ARC/``. After you have made these changes, run the script to start Docker.
 
 ```
-bash run_edge_assist_docker.bash
+bash run_arc_docker.bash
 ```
 
-This will fire up the docker and you can interact with it using the current terminal window. If you want to attach another terminal to it, open a new terminal and type the following
+This will fire up Docker, and you can interact with it using the current terminal window. If you want to attach another terminal to it, open a new terminal and type the following
 
 ```
-docker exec -it vrf bash
+docker exec -it arc bash
 ```
 
-This will open another terminal within the same docker.
+This will open another terminal within the same Docker.
 
-If you are curious about the docker, it contains ROS (Robot Operating System), PCL (Point Cloud Library), ColMap and some of their dependencies.
+If you are curious about Docker, it contains ROS (Robot Operating System), PCL (Point Cloud Library), ColMap, and some of their dependencies.
 
 
 ## Build Instructions
-This section explains how you can build the code that this repository contains. Again, the assumption is that you are running the ```alikhalid3110/ros_essentials:latest``` docker when you run the following commands. This repository uses the ROS build system (```catkin_make```). To build all the above modules, simply do the following.
+This section explains how you can build the code that this repository contains. Again, the assumption is that you are running the ```kk5271/rapid_v2v:1.0```Docker when you run the following commands. This repository uses the ROS build system (```catkin_make```). To build all the above modules, simply do the following.
 
 1. First, run the ROS master. To do this, run  the following:
 
