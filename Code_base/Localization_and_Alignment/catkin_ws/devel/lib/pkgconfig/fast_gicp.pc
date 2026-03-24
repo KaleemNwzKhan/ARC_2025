@@ -1,0 +1,8 @@
+prefix=/workspace/Localization_and_Alignment/catkin_ws/devel
+
+Name: fast_gicp
+Description: Description of fast_gicp
+Version: 0.0.0
+Cflags: -I/workspace/Localization_and_Alignment/catkin_ws/devel/include -I/workspace/Localization_and_Alignment/catkin_ws/src/fast_gicp/include
+Libs: -L${prefix}/lib -lfast_gicp
+Requires: message_runtime

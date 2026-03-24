@@ -1,0 +1,8 @@
+prefix=/workspace/Localization_and_Alignment/catkin_ws/devel
+
+Name: ndt_omp
+Description: Description of ndt_omp
+Version: 0.0.0
+Cflags: -I/workspace/Localization_and_Alignment/catkin_ws/src/ndt_omp/include
+Libs: -L${prefix}/lib -lndt_omp
+Requires: 
