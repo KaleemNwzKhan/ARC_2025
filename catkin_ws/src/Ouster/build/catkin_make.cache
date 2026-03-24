@@ -1,2 +1,0 @@
-ouster_example/ouster_ros
--DCATKIN_DEVEL_PREFIX=/workspace/catkin_ws/src/Ouster/devel -DCMAKE_INSTALL_PREFIX=/workspace/catkin_ws/src/Ouster/install -G Unix Makefiles
