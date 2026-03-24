@@ -1,0 +1,2 @@
+Ouster/src/ouster_example/ouster_ros:eaad:fast_gicp:ndt_omp:perception_pcl/pcl_conversions:perception_pcl/pcl_ros:perception_pcl/perception_pcl
+-DCATKIN_DEVEL_PREFIX=/workspace/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/workspace/catkin_ws/install -G Unix Makefiles

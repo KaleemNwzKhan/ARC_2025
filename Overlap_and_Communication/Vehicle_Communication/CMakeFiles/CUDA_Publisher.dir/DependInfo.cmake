@@ -1,0 +1,36 @@
+# The set of languages for which implicit dependencies are needed:
+set(CMAKE_DEPENDS_LANGUAGES
+  "CUDA"
+  )
+# The set of files for implicit dependencies of each language:
+set(CMAKE_DEPENDS_CHECK_CUDA
+  "/workspace/Intersection_DrivablePoints_and_Grid/Vehicle_Communication/Publisher.cu" "/workspace/Intersection_DrivablePoints_and_Grid/Vehicle_Communication/CMakeFiles/CUDA_Publisher.dir/Publisher.cu.o"
+  )
+set(CMAKE_CUDA_COMPILER_ID "NVIDIA")
+
+# Preprocessor definitions for this target.
+set(CMAKE_TARGET_DEFINITIONS_CUDA
+  "DISABLE_LIBUSB_1_0"
+  "DISABLE_PCAP"
+  "DISABLE_PNG"
+  "qh_QHpointer"
+  "vtkRenderingContext2D_AUTOINIT=1(vtkRenderingContextOpenGL2)"
+  "vtkRenderingCore_AUTOINIT=3(vtkInteractionStyle,vtkRenderingFreeType,vtkRenderingOpenGL2)"
+  )
+
+# The include file search paths:
+set(CMAKE_CUDA_TARGET_INCLUDE_PATH
+  "/usr/include/vtk-7.1"
+  "/usr/include/freetype2"
+  "/usr/local/include/pcl-1.11"
+  "/usr/include/eigen3"
+  "/usr/include/ni"
+  "/usr/include/openni2"
+  )
+
+# Targets to which this target links.
+set(CMAKE_TARGET_LINKED_INFO_FILES
+  )
+
+# Fortran module output directory.
+set(CMAKE_Fortran_TARGET_MODULE_DIR "")
