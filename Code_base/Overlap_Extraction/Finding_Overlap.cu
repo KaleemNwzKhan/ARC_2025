@@ -575,18 +575,6 @@ Eigen::Matrix4f Get_Transform()
   return init_guess;
 }
 
-// void applyTransformations(pcl::PointCloud<pcl::PointXYZ>::Ptr& leader_cloud, pcl::PointCloud<pcl::PointXYZ>::Ptr& vehicle_cloud, pcl::PointCloud<pcl::PointXYZ>::Ptr& vehicle_cloud_temp) {
-//     Eigen::Matrix4f leader_trans = Get_Transform(leader_file);
-//     Eigen::Matrix4f vehicle_trans = Get_Transform(vehicle_file);
-//         pcl::PointCloud<pcl::PointXYZ>::Ptr transformed_leader_cloud(new pcl::PointCloud<pcl::PointXYZ>);
-//         pcl::PointCloud<pcl::PointXYZ>::Ptr transformed_vehicle_cloud(new pcl::PointCloud<pcl::PointXYZ>);
-//         pcl::PointCloud<pcl::PointXYZ>::Ptr transformed_vehicle_cloud_temp(new pcl::PointCloud<pcl::PointXYZ>);
-//         pcl::transformPointCloud(*leader_cloud, *leader_cloud, leader_trans);
-//         pcl::transformPointCloud(*vehicle_cloud, *vehicle_cloud, vehicle_trans);
-//         pcl::transformPointCloud(*vehicle_cloud_temp, *vehicle_cloud_temp, vehicle_trans);
-//         std::cout << "Applied transformation to both leader and vehicle clouds.\n";
-// }
-
 void Fill_transforms() {
     Transform_file.open(Leader_transform_file);
     for (int i=0;i<number_of_frames;i++)
@@ -668,10 +656,6 @@ int Intersection_Points_and_Grid_Estimation()
     pcl::PointCloud<pcl::PointXYZ>::Ptr Combined(new pcl::PointCloud<pcl::PointXYZ>());
     *Combined=(*cloud_filtered_map_x)+(*cloud_filtered_xz);
 
-                // Combined->width = Combined->points.size();  // Set width to the number of points
-                // Combined->height = 1; 
-                // pcl::io::savePCDFileASCII("Map.pcd", *Combined);
-
 // ******************Grid Estimation for the Intersection***********************  
 
     pcl::PointXYZ minPt_vehicle, maxPt_vehicle;
@@ -746,23 +730,6 @@ int Intersection_Points_and_Grid_Estimation()
     }
     centroids=filtered_positions;
 
-//                 // std::cout << "Number of centroids: " << centroids.size() << std::endl;
-
-//                 // pcl::PointCloud<pcl::PointXYZ>::Ptr centroid_cloud(new pcl::PointCloud<pcl::PointXYZ>);
-//                 // for (const auto& centroid : centroids) {
-//                 //     centroid_cloud->points.push_back(centroid);
-//                 // }
-//                 // centroid_cloud->width = centroid_cloud->points.size();
-//                 // centroid_cloud->height = 1;  
-//                 // centroid_cloud->is_dense = true;
-                
-//                 // if (pcl::io::savePCDFileASCII("Grid.pcd", *centroid_cloud) == -1) {
-//                 //     PCL_ERROR("Failed to save point cloud.");
-//                 //     return -1;
-//                 // }
-
-//                 // std::cout << "Saved " << centroid_cloud->points.size() << " grid centroids to " << filename << std::endl;
-
                 
 // ******************Vehicle Drivable Space Estimation***********************  
 
@@ -782,11 +749,6 @@ int Intersection_Points_and_Grid_Estimation()
         }
     }
     customLess;
-
-
-    // std::vector<std::filesystem::path> files_in_directory;
-    // std::copy(std::filesystem::directory_iterator(Vehicle_PCDs_Path), std::filesystem::directory_iterator(), std::back_inserter(files_in_directory));
-    // std::sort(files_in_directory.begin(), files_in_directory.end(), customLess);
 
     std::vector<std::filesystem::path> files_in_directory1, files_in_directory2;
     std::copy(std::filesystem::directory_iterator(Vehicle_PCDs_Path), std::filesystem::directory_iterator(), std::back_inserter(files_in_directory1));
@@ -885,10 +847,6 @@ for (const std::string& filename : files_in_directory1)
     accumulate_time=accumulate_time+time2;
     Vehicle_cloud = xy_cloud_filtered_z;
 
-                // Vehicle_cloud->width =  Vehicle_cloud->points.size();  // Set width to the number of points
-                //  Vehicle_cloud->height = 1; 
-                // pcl::io::savePCDFileASCII("Vehicle_DS_"+current_frame_name, * Vehicle_cloud);
-
 
 // ***************************************** Dynamic Objects and Non-Road Points Extraction**********************************************  
 
@@ -904,11 +862,7 @@ for (const std::string& filename : files_in_directory1)
     detectChangesCUDA(cloud_downsampled_map, Vehicle_cloud, changes, distance_threshold);
     time3_1 = time3;
 
-        // changes->width = changes->points.size();  // Set width to the number of points
-        //  changes->height = 1;  // Unorganized point cloud
-        //  pcl::io::savePCDFileASCII("Vehicles_Points_Only"+current_frame_name, *changes);
-
-            // *************************** Non-Road Points Extraction*********************
+    // *************************** Non-Road Points Extraction*********************
 
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_downsampled_vehicle(new pcl::PointCloud<pcl::PointXYZ>()); 
     pcl::PointCloud<pcl::PointXYZ>::Ptr Non_ground_points(new pcl::PointCloud<pcl::PointXYZ>()); 
@@ -918,336 +872,6 @@ for (const std::string& filename : files_in_directory1)
     detectChangesCUDA(cloud_downsampled_vehicle, Vehicle_cloud_temp, Non_ground_points, distance_threshold);
     time3= time3>time3_1?time3:time3_1;
     accumulate_time=accumulate_time+time3;
-
-    // Non_ground_points->width = Non_ground_points->points.size();  // Set width to the number of points
-    // Non_ground_points->height = 1;  // Unorganized point cloud
-    // Eigen::Matrix4f vehicle_trans_inverse = vehicle_trans.inverse();
-    // pcl::transformPointCloud(*Non_ground_points, *Non_ground_points, vehicle_trans_inverse);
-    //   pcl::io::savePCDFileASCII("Vehicle_Non_Ground/"+current_frame_name, *Non_ground_points);
-// std::vector<pcl::PointXYZ> positions_list;
-//     for (int i=0;i<number_of_vehicles;i++)
-//     {
-//         auto [x, y, z] = lists[i][global_count];
-// 	//cout<<"X and Y and Z Values: "<<x<<" "<< y<<" "<< z<<endl;
-//         positions_list.push_back(pcl::PointXYZ(x,y,z));
-//     }
-
-//cout<<"List size: "<<lists.size()<<endl;
-//     std::vector<pcl::PointXYZ> positions_list = { 
-//     pcl::PointXYZ(-4.369153594970703125e+01,5.486972427368164062e+01,2.188285589218139648e+00),
-//     pcl::PointXYZ(-4.717868423461914062e+01, 5.212943649291992188e+01, 2.414839744567871094e+00),
-//     pcl::PointXYZ(-4.704954910278320312e+01, 3.341448593139648438e+01, 2.325795888900756836e+00),
-//     pcl::PointXYZ(-4.354092025756835938e+01,3.187811279296875000e+01,2.444107055664062500e+00),
-//     pcl::PointXYZ(-4.713151168823242188e+01, 1.282591152191162109e+01, 2.511302709579467773e+00),
-//     pcl::PointXYZ(-4.356395721435546875e+01, 1.832020187377929688e+01, 2.048950433731079102e+00),
-//     pcl::PointXYZ(-6.024911880493164062e+00,-9.418421983718872070e-01,1.994088411331176758e+00),
-//     pcl::PointXYZ(-4.311421871185302734e+00, -4.439491748809814453e+00, 2.536698341369628906e+00),
-//     pcl::PointXYZ(-2.126921272277832031e+01, -4.398709774017333984e+00, 2.081127166748046875e+00),
-//     pcl::PointXYZ(-2.315992546081542969e+01,-8.944885730743408203e-01,2.210667371749877930e+00),
-//     pcl::PointXYZ(-3.916044235229492188e+01, -4.354568004608154297e+00, 2.211443901062011719e+00),
-//     pcl::PointXYZ(-4.262006759643554688e+01, -8.472048044204711914e-01, 2.386896371841430664e+00),
-//     pcl::PointXYZ(-5.478238296508789062e+01,-5.361889648437500000e+01,2.414839506149291992e+00),
-//     pcl::PointXYZ(-5.128505325317382812e+01, -5.410670471191406250e+01, 2.188285350799560547e+00),
-//     pcl::PointXYZ(-5.469423294067382812e+01, -3.869682693481445312e+01, 2.699539661407470703e+00),
-//     pcl::PointXYZ(-5.118546295166015625e+01,-3.745829772949218750e+01,2.472491502761840820e+00),
-//     pcl::PointXYZ(-5.457848358154296875e+01, -1.924626541137695312e+01, 2.304422140121459961e+00),
-//     pcl::PointXYZ(-5.105447006225585938e+01, -1.573933696746826172e+01,  2.254399776458740234e+00),
-//     pcl::PointXYZ(-5.435709381103515625e+01,-4.922786951065063477e-01,2.417370319366455078e+00),
-//     pcl::PointXYZ(-9.675198364257812500e+01,2.790080547332763672e+00, 1.993329167366027832e+00),
-//     pcl::PointXYZ(-9.363206481933593750e+01, 6.277460098266601562e+00, 2.875283241271972656e+00),
-//     pcl::PointXYZ(-7.565912628173828125e+01,2.732823371887207031e+00,2.276685953140258789e+00),
-//     pcl::PointXYZ(-7.335550689697265625e+01,  6.227827548980712891e+00, 2.358937501907348633e+00),
-//     pcl::PointXYZ(-6.157320022583007812e+01, 2.699161529541015625e+00, 2.644088983535766602e+00),
-//     pcl::PointXYZ(-5.764266586303710938e+01, 6.189242362976074219e+00, 2.214265584945678711e+00)
-// };
-// int cloud_size =  changes->points.size();
-// int positions_size = positions_list.size();
-
-// // Allocate memory on the device
-// pcl::PointXYZ* d_cloud_points;
-// pcl::PointXYZ* d_positions;
-// int* d_assignments;
-// cudaMalloc((void**)&d_cloud_points, cloud_size * sizeof(pcl::PointXYZ));
-// cudaMalloc((void**)&d_positions, positions_size * sizeof(pcl::PointXYZ));
-// cudaMalloc((void**)&d_assignments, cloud_size * sizeof(int));
-
-// // Copy data to device
-// cudaMemcpy(d_cloud_points,  changes->points.data(), cloud_size * sizeof(pcl::PointXYZ), cudaMemcpyHostToDevice);
-// cudaMemcpy(d_positions, positions_list.data(), positions_size * sizeof(pcl::PointXYZ), cudaMemcpyHostToDevice);
-
-// // Launch CUDA kernel to assign points to positions
-// threads_per_block = 256;
-// num_blocks = (cloud_size + threads_per_block - 1) / threads_per_block;
-// run_time_start = clock();
-// assignPointsToPositions<<<num_blocks, threads_per_block>>>(d_cloud_points, cloud_size, d_positions, positions_size, d_assignments);
-// cudaDeviceSynchronize();
-// run_time_end = clock();
-// time4 = run_time_end - run_time_start;
-// time4 = (((float)(time4)/CLOCKS_PER_SEC)*1000);
-// accumulate_time = accumulate_time + time4;
-
-// // Check for kernel execution errors
-// error = cudaGetLastError();
-// if (error != cudaSuccess) {
-//     std::cerr << "CUDA kernel failed: " << cudaGetErrorString(error) << std::endl;
-//     return -1;
-// }
-
-// // Copy the assignments back to host
-// std::vector<int> assignments(cloud_size);
-// cudaMemcpy(assignments.data(), d_assignments, cloud_size * sizeof(int), cudaMemcpyDeviceToHost);
-
-// // Free device memory
-// cudaFree(d_cloud_points);
-// cudaFree(d_positions);
-// cudaFree(d_assignments);
-
-// // Initialize a vector of point clouds to store points assigned to each position
-// std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> position_clouds(positions_size);
-// for (size_t i = 0; i < positions_size; ++i) {
-//     position_clouds[i].reset(new pcl::PointCloud<pcl::PointXYZ>);
-// }
-
-// run_time_start = clock();
-// //Populate point clouds based on the assignment
-// for (int i = 0; i < cloud_size; ++i) {
-//     int pos_idx = assignments[i];  // Get the assigned position index for point i
-//     if (pos_idx >= 0 && pos_idx < positions_size) {  // Ensure valid position index
-//         pcl::PointXYZ point = changes->points[i];
-//         position_clouds[pos_idx]->points.push_back(point);  // Correctly use changes->points[i]
-//     } else {
-//         std::cerr << "Invalid position index: " << pos_idx << std::endl;
-//     }
-// }
-// run_time_end = clock();
-// time5 = run_time_end - run_time_start;
-// time5 = (((float)(time5)/CLOCKS_PER_SEC)*1000);
-// accumulate_time = accumulate_time + time5;
-
-// //  pcl::io::savePCDFileASCII("Kaleem.pcd", *v_x_cloud_filtered_map_x);
-
-
-// // // //Save each position's assigned points as a separate PCD file
-// // // for (size_t i = 0; i < positions_size; ++i) {
-// // //     if (!position_clouds[i]->points.empty()) {
-// // //         std::stringstream filename;
-// // //         filename << "position_" << i << "_points.pcd";
-// // //         position_clouds[i]->width = position_clouds[i]->points.size();  // Set width to the number of points
-// // //         position_clouds[i]->height = 1;  // Unorganized point cloud
-// // //         pcl::io::savePCDFileASCII(filename.str(), *position_clouds[i]);
-// // //         std::cout << "Saved " << position_clouds[i]->points.size() << " points to " << filename.str() << std::endl;
-// // //     }
-// // // }
-
-
-// //Save each position's assigned points as a separate PCD file
-// for (size_t i = 0; i < positions_size; ) {
-//     if (position_clouds[i]->points.empty()) {
-//         positions_list.erase(positions_list.begin() + i);
-//         cout<<"Errased: "<<positions_list[i]<<endl;
-//         --positions_size;
-//     } 
-//     else {
-//         ++i; 
-//     }
-// }
-// // *****************************************BlindSpots Estimation*********************************************************************   
-    
-// {
-//     int cloudSize = Vehicle_cloud->size();
-//     int num_centroids = centroids.size();
-
-//     pcl::PointXYZ *d_centroids;
-//     cudaMalloc((void**)&d_centroids, num_centroids * sizeof(pcl::PointXYZ));
-//     cudaMemcpy(d_centroids, centroids.data(), num_centroids * sizeof(pcl::PointXYZ), cudaMemcpyHostToDevice);
-//     std::vector<int> result;
-
-//     std::vector<int> vehicle_pd(num_centroids, 0);
-
-//     cloudSize = Vehicle_cloud->size();
-//     result.resize(cloudSize);
-
-//     pcl::PointXYZ *h_points = Vehicle_cloud->points.data();  
-//     pcl::PointXYZ *d_points;
-        
-//     cudaMalloc((void**)&d_points, cloudSize * sizeof(pcl::PointXYZ));
-//     cudaMemcpy(d_points, h_points, cloudSize * sizeof(pcl::PointXYZ), cudaMemcpyHostToDevice);
-
-//     int *res_ptr = result.data();
-//     int *d_res_ptr;
-
-//     cudaMalloc((void**)&d_res_ptr, cloudSize * sizeof(int));
-//     cudaMemcpy(d_res_ptr, res_ptr, cloudSize * sizeof(int), cudaMemcpyHostToDevice);
-
-//     int numBlocks = (cloudSize + threadsPerBlock - 1) / threadsPerBlock;
-//     run_time_end = clock();
-//     getNN_modified<<<numBlocks, threadsPerBlock>>>(cloudSize, d_points, d_res_ptr, d_centroids, num_centroids);
-//     cudaDeviceSynchronize();
-//     run_time_end = clock();
-//     time6 = run_time_end - run_time_start;
-//     time6 = (((float)(time6)/CLOCKS_PER_SEC)*1000);
-//     accumulate_time = accumulate_time + time6;
-
-//     cudaMemcpy(res_ptr, d_res_ptr, cloudSize * sizeof(int), cudaMemcpyDeviceToHost);
-
-//     cudaFree(d_points);
-//     cudaFree(d_res_ptr);
-//     cudaFree(d_centroids);
-
-//     int cloudSize2 = result.size();
-//     int gridSize2 = vehicle_pd.size();
-
-//     int* d_result2 = nullptr;
-//     int* d_vehicle_pd = nullptr;
-//     cudaMalloc(&d_result2, cloudSize2 * sizeof(int));
-//     cudaMalloc(&d_vehicle_pd, gridSize2 * sizeof(int));
-
-//     cudaMemcpy(d_result2, result.data(), cloudSize2 * sizeof(int), cudaMemcpyHostToDevice);
-//     cudaMemcpy(d_vehicle_pd, vehicle_pd.data(), gridSize2 * sizeof(int), cudaMemcpyHostToDevice);
-
-//     int threadsPerBlock = 256;
-//     int blocksPerGrid = (cloudSize2 + threadsPerBlock - 1) / threadsPerBlock;
-//     run_time_start = clock();
-//     incrementKernel<<<blocksPerGrid, threadsPerBlock>>>(d_result2, d_vehicle_pd, cloudSize2, gridSize2);
-//     cudaDeviceSynchronize();
-//     cudaCheckError();
-//     run_time_end = clock();
-//     time7 = run_time_end - run_time_start;
-//     time7 = (((float)(time7)/CLOCKS_PER_SEC)*1000);
-//     accumulate_time = accumulate_time + time7;
-
-//     cudaMemcpy(vehicle_pd.data(), d_vehicle_pd, gridSize2 * sizeof(int), cudaMemcpyDeviceToHost);
-
-//     cudaFree(d_result2);
-//     cudaFree(d_vehicle_pd);
-
-
-// // *****************************************BlindSpots Assignment to Suppliers*********************************************************************   
-
-//     int centroids_size = centroids.size();
-//     int vehicle_pd_size = vehicle_pd.size();
-//     positions_size = positions_list.size();
-
-
-//      d_centroids = nullptr;
-//      d_vehicle_pd = nullptr;
-//     pcl::PointXYZ* d_positions_list = nullptr;
-
-//     cudaMalloc(&d_centroids, centroids_size * sizeof(pcl::PointXYZ));
-//     cudaMalloc(&d_vehicle_pd, vehicle_pd_size * sizeof(int));
-//     cudaMalloc(&d_positions_list, positions_size * sizeof(pcl::PointXYZ));
-//     cudaMemcpy(d_centroids, centroids.data(), centroids_size * sizeof(pcl::PointXYZ), cudaMemcpyHostToDevice);
-//     cudaMemcpy(d_vehicle_pd, vehicle_pd.data(), vehicle_pd_size * sizeof(int), cudaMemcpyHostToDevice);
-//     cudaMemcpy(d_positions_list, positions_list.data(), positions_size * sizeof(pcl::PointXYZ), cudaMemcpyHostToDevice);
-
-
-//     threadsPerBlock = 256;
-//     blocksPerGrid = (vehicle_pd_size + threadsPerBlock - 1) / threadsPerBlock;
-
-
-//     int max_bounding_boxes_per_position = centroids_size;  
-//     int total_bounding_boxes = positions_size * max_bounding_boxes_per_position;
-
-//     BoundingBox* d_bounding_boxes = nullptr;
-//     int* d_bounding_box_offsets = nullptr;
-//     int* d_bounding_box_counts = nullptr;
-
-//     cudaMalloc(&d_bounding_boxes, total_bounding_boxes * sizeof(BoundingBox));
-//     cudaMalloc(&d_bounding_box_offsets, positions_size * sizeof(int));
-//     cudaMalloc(&d_bounding_box_counts, positions_size * sizeof(int));
-
-//     // Initialize offsets and counts
-//     std::vector<int> bounding_box_offsets(positions_size);
-//     for (int i = 0; i < positions_size; ++i) {
-//         bounding_box_offsets[i] = i * max_bounding_boxes_per_position;
-//     }
-//     cudaMemcpy(d_bounding_box_offsets, bounding_box_offsets.data(), positions_size * sizeof(int), cudaMemcpyHostToDevice);
-//     cudaMemset(d_bounding_box_counts, 0, positions_size * sizeof(int));
-//     run_time_start = clock();
-//     updateBoundingBoxesKernel<<<blocksPerGrid, threadsPerBlock>>>(
-//         d_centroids,
-//         d_vehicle_pd,
-//         d_positions_list,
-//         d_bounding_boxes,
-//         d_bounding_box_offsets,
-//         d_bounding_box_counts,
-//         vehicle_pd_size,
-//         positions_size,
-//         cell_x_size,
-//         cell_y_size,
-//         max_bounding_boxes_per_position
-//     );
-//     run_time_end = clock();
-//     time8 = run_time_end - run_time_start;
-//     time8 = (((float)(time8)/CLOCKS_PER_SEC)*1000);
-//     accumulate_time = accumulate_time + time8;
-
-
-//     std::vector<BoundingBox> bounding_boxes(total_bounding_boxes);
-//     std::vector<int> bounding_box_counts(positions_size);
-//     cudaMemcpy(bounding_boxes.data(), d_bounding_boxes, total_bounding_boxes * sizeof(BoundingBox), cudaMemcpyDeviceToHost);
-//     cudaMemcpy(bounding_box_counts.data(), d_bounding_box_counts, positions_size * sizeof(int), cudaMemcpyDeviceToHost);
-    
-//     // int total=0;
-//     // // Process results
-//     // for (int i = 0; i < positions_size; ++i) {
-//     //     // std::cout << "Position " << i << " has " << bounding_box_counts[i] << " bounding boxes:" << std::endl;
-//     //     BB_file << i <<" "<< bounding_box_counts[i]<< std::endl;
-//     //     // total=total+bounding_box_counts[i];
-//     //     for (int j = 0; j < bounding_box_counts[i]; ++j) {
-//     //         BoundingBox& box = bounding_boxes[i * max_bounding_boxes_per_position + j];
-//     //         BB_file << box.minX <<" "<< box.minY<<" "<<box.maxX <<" "<< box.maxY << std::endl;
-//     //         // std::cout << "  minX: " << box.minX << ", minY: " << box.minY
-//     //         //           << ", maxX: " << box.maxX << ", maxY: " << box.maxY << std::endl;
-//     //     }
-//     // }
-
-//         int total=0;
-//     // Process results
-//     for (int i = 0; i < positions_size; ++i) {
-//         BB_file << positions_list[i] <<" "<< bounding_box_counts[i]<< std::endl;
-//         for (int j = 0; j < bounding_box_counts[i]; ++j) {
-//             BoundingBox& box = bounding_boxes[i * max_bounding_boxes_per_position + j];
-//             float centerX = (box.minX + box.maxX) / 2.0f;
-//             float centerY = (box.minY + box.maxY) / 2.0f;
-//             BB_file << centerX <<" "<< centerY<<std::endl;
-//         }
-//     }
-
-
-//     // // // Store centers as a point cloud
-//     //  pcl::PointCloud<pcl::PointXYZ>::Ptr centers_cloud(new pcl::PointCloud<pcl::PointXYZ>);
-
-//     //  for (int i = 0; i < positions_size; ++i) {
-//     //      for (int j = 0; j < bounding_box_counts[i]; ++j) {
-//     //          BoundingBox& box = bounding_boxes[i * max_bounding_boxes_per_position + j];
-
-//     //          // Calculate the center of the bounding box
-//     //          float centerX = (box.minX + box.maxX) / 2.0f;
-//     //          float centerY = (box.minY + box.maxY) / 2.0f;
-//     //         float centerZ = 0.0f;  // Assuming 2D bounding boxes; set Z to 0 or another value if applicable.
-
-//     //          // Add the center as a point in the point cloud
-//     //          pcl::PointXYZ center_point(centerX, centerY, centerZ);
-//     //          centers_cloud->points.push_back(center_point);
-//     //      }
-//     //  }
-
-//     // // // Set cloud properties
-//     // centers_cloud->width = centers_cloud->points.size();
-//     //  centers_cloud->height = 1; // Unordered point cloud
-
-//     //  // Optionally save to a PCD file
-//     //  pcl::io::savePCDFileASCII("bounding_box_centers"+current_frame_name, *centers_cloud);
-//     //  std::cout << "Saved " << centers_cloud->points.size() << " bounding box centers to bounding_box_centers.pcd" << std::endl;
-
-
-//     // Clean up
-//     cudaFree(d_bounding_boxes);
-//     cudaFree(d_bounding_box_offsets);
-//     cudaFree(d_bounding_box_counts);
-// }
-
 // // *****************************************Overlap Estimation*********************************************************************   
 
     float time_overlap=0.0;
@@ -1522,17 +1146,9 @@ if (overlap)
     cudaFree(d_final_count_vehicle);
     cudaFree(d_final_count_leader);
 
-
-    // log_file<<time1+time2<<","<<time3<<","<<time4+time5<<","<<time6+time7<<","<<time8<<","<<time9<<","<<accumulate_time<<endl;
     log_file<<time_overlap<<endl;
     std::cout << "Overlap Estimation Time: " << time_overlap << std::endl;
-    // std::cout << "Accumulated Time: " << accumulate_time << std::endl;
-    // std::cout << "Road Filter Time: " << time1 + time2 << std::endl;
-    // std::cout << "Dynamic Objects Extraction Time: " << time3 << std::endl;
-    // std::cout << "Vehicle Points Assignment Time: " << time4+time5 << std::endl;
-    // std::cout << "BlindSPots Calculation Time: " << time6+time7 << std::endl;
-    // std::cout << "BlindSpts Assignment to the Suppliers: "<<time8<<endl;
-    // std::cout << "Estimating and Filtering Overlapping Regions: "<<time9<<endl;
+
 }
 
 return 0;
@@ -1563,17 +1179,7 @@ int main (int argc, char** argv)
     log_file.open(Output_file);
     cells_count_file.open(Overlap_Folder+"/Cells_count.txt");
     log_file<<"Overlap_Estimation_Latency"<<endl;
-    // log_file<<"Road Filter"<<","<<"Dynamic Objects Extraction"<<","<<"Vehicle Points Assignment"<<","<<"BlindSPots Calculation"<<","<<"BlindSpts Assignment to the Suppliers"<<","<<"Estimating and Filtering Overlapping Regions"<<","<<"E2E_Latency"<<endl;
-
-    // cout<<"Leader Path: "<<Leader_PCD_Path<<endl;
-    // cout<<"Vehicle Path: "<<Vehicle_PCDs_Path<<endl;
-    // cout<<"Leader_transform_file: "<<Leader_transform_file<<endl;
-    // cout<<"Vehicle_transform_file: "<<Vehicle_transform_file<<endl;
-    // cout<<"All Vehicles Transform Folder: "<<All_Vehicles_Transforms_Folder<<endl;
-    // cout<<"Output File: "<< Output_file<<endl;
-    //  BB_file.open("BB.txt"); // Open the second file
      Intersection_Points_and_Grid_Estimation();
-    //  BB_file.close();
 
     return (0);
 }
