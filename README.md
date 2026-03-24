@@ -1,4 +1,6 @@
-# ARC: Accurate, Real-time, and Scalable Multi-vehicle Cooperative Perception
+# ARC: Accurate, Real-Time, and Scalable Multi-Vehicle Cooperative Perception
+
+This repository contains the code for the paper [ARC: Accurate, Real-Time, and Scalable Multi-Vehicle Cooperative Perception](https://kaleemnwzkhan.github.io/assets/pdf/ARC.pdf).
 
 # Table of Contents
 - [Setup](#setup)
@@ -27,6 +29,8 @@ docker images
 This should output all the Docker images you have on your machine, and it should contain `docker pull kk5271/rapid_v2v:1.0`. After starting Docker, ensure you run the docker file and define your path settings and volume mounts correctly to access datasets and code.
 
 ## Dataset
+Download the dataset from [this Google Drive link](https://drive.google.com/drive/folders/1Q374JyFSiZ8mbfJZweNIv9sgqCm8VhnQ?usp=sharing) and extract its contents into the `Dataset` folder.
+
 This repository relies on specific directory structures for dataset processing:
 - **Vehicles Directory (`/dataset/Vehicles`)**: Contains the source data for each vehicle in the scene.
 - **Leader Directory (`/dataset/Leader`)**: Contains the reference data (`PCDs` and `Leader_Poses.txt`) for the vehicle designated as the anchor/leader.
@@ -87,3 +91,15 @@ This section explains how to run the codebase, reproduce alignment outcomes, and
    python3 Plot.py
    ```
    *Output*: This will generate the final accuracy plots characterizing the alignment results.
+
+## Citation
+If you are using this code or dataset in your work, please consider citing our paper:
+
+```bibtex
+@inproceedings{khan2026arc,
+  title={ARC: Accurate, Real-Time, and Scalable Multi-Vehicle Cooperative Perception},
+  author={Khan, Kaleem Nawaz and Ahmad, Fawad},
+  booktitle={ACM/IEEE International Conference on Embedded Artificial Intelligence and Sensing Systems},
+  year={2026}
+}
+```
