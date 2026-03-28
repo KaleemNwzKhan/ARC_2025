@@ -24,13 +24,13 @@ This repository contains the official code for the paper: **[ARC: Accurate, Real
 To better understand the ARC system workflow, please refer to our core architectural diagrams below:
 
 ### End-to-End System Architecture
-![E2E Diagram](Plots/E2E_Diagram.pdf)
+![E2E Diagram](Plots/E2E_Diagram.png)
 
 ### Fast Overlap Extraction
-![Fast Overlap Extraction](Plots/Fast_Overlap_Extraction.pdf)
+![Fast Overlap Extraction](Plots/Fast_Overlap_Extraction.png)
 
 ### Fast Spatial Reasoning
-![Fast Spatial Reasoning](Plots/Fast_Spatial_Reasoning.pdf)
+![Fast Spatial Reasoning](Plots/Fast_Spatial_Reasoning.png)
 
 ---
 
