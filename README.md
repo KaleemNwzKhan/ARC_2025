@@ -27,7 +27,7 @@ To better understand the ARC system workflow, please refer to our core architect
 ### End-to-End System Architecture
 
 <p align="center">
-  <img src="Plots/E2E_Diagram.png" alt="E2E Diagram" width="70%"/>
+  <img src="Plots/E2E_Diagram.png" alt="E2E Diagram" width="80%"/>
 </p>
 
 
