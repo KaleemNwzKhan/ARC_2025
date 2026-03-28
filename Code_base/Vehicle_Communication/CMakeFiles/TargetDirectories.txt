@@ -1,0 +1,5 @@
+/workspace/Vehicle_Communication/CMakeFiles/rebuild_cache.dir
+/workspace/Vehicle_Communication/CMakeFiles/edit_cache.dir
+/workspace/Vehicle_Communication/CMakeFiles/CUDA_Publisher_Assignment.dir
+/workspace/Vehicle_Communication/CMakeFiles/CUDA_Publisher.dir
+/workspace/Vehicle_Communication/CMakeFiles/CUDA_Subscriber.dir
