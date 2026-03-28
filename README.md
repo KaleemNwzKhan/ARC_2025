@@ -23,8 +23,12 @@ This repository contains the official code for the paper: **[ARC: Accurate, Real
 
 To better understand the ARC system workflow, please refer to our core architectural diagrams below:
 
+
 ### End-to-End System Architecture
-<img src="Plots/E2E_Diagram.png" alt="E2E Diagram" width="60%"/>
+
+<p align="center">
+  <img src="Plots/E2E_Diagram.png" alt="E2E Diagram" width="70%"/>
+</p>
 
 
 ---
