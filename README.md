@@ -26,11 +26,6 @@ To better understand the ARC system workflow, please refer to our core architect
 ### End-to-End System Architecture
 <img src="Plots/E2E_Diagram.png" alt="E2E Diagram" width="100%"/>
 
-### Fast Overlap & Spatial Reasoning
-<p align="center">
-  <img src="Plots/Fast_Overlap_Extraction.png" alt="Fast Overlap Extraction" width="49%"/>
-  <img src="Plots/Fast_Spatial_Reasoning.png" alt="Fast Spatial Reasoning" width="49%"/>
-</p>
 
 ---
 
