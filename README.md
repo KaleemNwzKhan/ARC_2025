@@ -24,13 +24,13 @@ This repository contains the official code for the paper: **[ARC: Accurate, Real
 To better understand the ARC system workflow, please refer to our core architectural diagrams below:
 
 ### End-to-End System Architecture
-![E2E Diagram](Plots/E2E_Diagram.png)
+<img src="Plots/E2E_Diagram.png" alt="E2E Diagram" width="100%"/>
 
-### Fast Overlap Extraction
-![Fast Overlap Extraction](Plots/Fast_Overlap_Extraction.png)
-
-### Fast Spatial Reasoning
-![Fast Spatial Reasoning](Plots/Fast_Spatial_Reasoning.png)
+### Fast Overlap & Spatial Reasoning
+<p align="center">
+  <img src="Plots/Fast_Overlap_Extraction.png" alt="Fast Overlap Extraction" width="49%"/>
+  <img src="Plots/Fast_Spatial_Reasoning.png" alt="Fast Spatial Reasoning" width="49%"/>
+</p>
 
 ---
 
@@ -97,6 +97,10 @@ You must copy the localization results and point clouds of the chosen leader to 
 
 **Step 4: Fast Overlap Extraction**
 Execute the Fast Overlap Extraction Algorithm. This identifies and extracts structurally overlapping regions shared between the vehicles and the leader over continuous frames.
+```bash
+cd Overlap_extraction
+bash Overlap_extraction.sh
+```
 
 **Step 5: Vehicle-to-Leader Ground Truth Calculation**
 Calculate the precise ground-truth spatial transformations between all vehicles and the anchor/leader.
