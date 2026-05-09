@@ -234,9 +234,6 @@ doi = {10.1145/3774906.3800484},
 booktitle = {Proceedings of the 2026 ACM/IEEE International Conference on Embedded Artificial Intelligence and Sensing Systems},
 pages = {775–788},
 numpages = {14},
-keywords = {Autonomous Vehicles, Cooperative Perception, Sensor Fusion, Point Cloud Alignment, Collaborative Sensing},
-location = {
-},
 series = {SenSys '26}
 }
 ```
