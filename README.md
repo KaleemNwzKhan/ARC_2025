@@ -222,10 +222,21 @@ We evaluate the structural bandwidth consumption (in Mbps) required by interacti
 If you utilize our codebase, architecture, or dataset in your research workflows, please consider citing our work:
 
 ```bibtex
-@inproceedings{khan2026arc,
-  title={ARC: Accurate, Real-Time, and Scalable Multi-Vehicle Cooperative Perception},
-  author={Khan, Kaleem Nawaz and Ahmad, Fawad},
-  booktitle={ACM/IEEE International Conference on Embedded Artificial Intelligence and Sensing Systems},
-  year={2026}
+@inproceedings{10.1145/3774906.3800484,
+author = {Khan, Kaleem Nawaz and Ahmad, Fawad},
+title = {ARC: Accurate, Real-Time, and Scalable Multi-Vehicle Cooperative Perception},
+year = {2026},
+isbn = {9798400723094},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3774906.3800484},
+doi = {10.1145/3774906.3800484},
+booktitle = {Proceedings of the 2026 ACM/IEEE International Conference on Embedded Artificial Intelligence and Sensing Systems},
+pages = {775–788},
+numpages = {14},
+keywords = {Autonomous Vehicles, Cooperative Perception, Sensor Fusion, Point Cloud Alignment, Collaborative Sensing},
+location = {
+},
+series = {SenSys '26}
 }
 ```
